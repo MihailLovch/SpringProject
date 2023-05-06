@@ -1,5 +1,5 @@
 
-package ru.kpfu.itis.semesterprojectspring.remote.apiresponse;
+package ru.kpfu.itis.semesterprojectspring.model.response.api;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;

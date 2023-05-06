@@ -3,7 +3,7 @@ package ru.kpfu.itis.semesterprojectspring.remote;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.kpfu.itis.semesterprojectspring.remote.apiresponse.RecipeResponse;
+import ru.kpfu.itis.semesterprojectspring.model.response.api.RecipeResponse;
 
 import java.net.URI;
 import java.net.http.HttpClient;

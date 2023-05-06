@@ -1,7 +1,7 @@
 package ru.kpfu.itis.semesterprojectspring.utils.mapper;
 
 import ru.kpfu.itis.semesterprojectspring.model.dto.RandomRecipeDto;
-import ru.kpfu.itis.semesterprojectspring.remote.apiresponse.RecipeResponse;
+import ru.kpfu.itis.semesterprojectspring.model.response.api.RecipeResponse;
 
 public class RemoteMapper {
     private static final String FATS = "Fat";
@@ -14,7 +14,7 @@ public class RemoteMapper {
                 .calories(recipeResponse.getNutrition().getNutrients().stream().filter(it -> it.getName().equals(CALORIES)).findFirst().orElseThrow(()->new IllegalArgumentException("Not found")).getAmount())
                 .carbs(recipeResponse.getNutrition().getNutrients().stream().filter(it -> it.getName().equals(CARBS)).findFirst().orElseThrow(()->new IllegalArgumentException("Not found")).getAmount())
                 .fats(recipeResponse.getNutrition().getNutrients().stream().filter(it -> it.getName().equals(FATS)).findFirst().orElseThrow(()->new IllegalArgumentException("Not found")).getAmount())
-                .description(recipeResponse.getSummary())
+                .information(recipeResponse.getSummary())
                 .instruction(recipeResponse.getInstructions())
                 .imageUrl(recipeResponse.getImage())
                 .build();

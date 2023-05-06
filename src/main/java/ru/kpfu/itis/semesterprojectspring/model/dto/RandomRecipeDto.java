@@ -14,6 +14,6 @@ public class RandomRecipeDto {
     private Double carbs;
     private Double fats;
     private String imageUrl;
-    private String description;
+    private String information;
     private String instruction;
 }

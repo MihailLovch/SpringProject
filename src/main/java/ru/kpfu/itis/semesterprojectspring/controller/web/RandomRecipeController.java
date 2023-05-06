@@ -1,4 +1,4 @@
-package ru.kpfu.itis.semesterprojectspring.controller;
+package ru.kpfu.itis.semesterprojectspring.controller.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class RandomRecipeController {
             map.addAttribute("calorie",dto.getCalories());
             map.addAttribute("fat",dto.getFats());
             map.addAttribute("carb",dto.getCarbs());
-            map.addAttribute("info",dto.getDescription());
+            map.addAttribute("info",dto.getInformation());
             map.addAttribute("recipe",dto.getInstruction());
             return "randomRecipe";
         }catch (Exception exception){
