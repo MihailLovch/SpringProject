@@ -53,6 +53,9 @@
     </style>
 
     <h1>Registration Form</h1>
+    <c:if test="${not empty errorMessage}">
+        <p>${errorMessage}</p>
+    </c:if>
     <form:form method="post" modelAttribute="signingForm">
         <table>
             <tr>
