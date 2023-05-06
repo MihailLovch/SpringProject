@@ -1,9 +1,11 @@
 package ru.kpfu.itis.semesterprojectspring.model.dto;
 
+
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Data
 @AllArgsConstructor
