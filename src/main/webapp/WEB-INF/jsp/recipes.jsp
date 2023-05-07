@@ -8,6 +8,12 @@
         <div style="color: red; margin-top: 100px"> ${error}</div>
     </c:if>
 
+    <c:if test="${not empty user}">
+        <form action="/favorite" method="get">
+            <input type="submit" value="Show only favorite">
+        </form>
+    </c:if>
+
     <c:forEach var="recipe" items="${recipes}" varStatus="loop">
         <div class="align-items-center">
             <span>${recipe.name}</span>
@@ -16,15 +22,6 @@
             <span id="fat${loop.index}">Fats: ${recipe.fat}</span>
             <span id="carb${loop.index}">Carbs: ${recipe.carbs}</span>
             <c:if test="${user != null}">
-
-<%--                                    <input type="submit" value="Eat it" id="submit${loop.index}" name="submit${loop.index}">--%>
-<%--                                    <input type="submit" value="Add to my preferred" name="preferred${loop.index}">--%>
-<%--                                    <div class="slidecontainer">--%>
-<%--                                        <input type="range" min="1" max="1000" value="100" class="slider" id="myRange${loop.index}">--%>
-<%--                                        <span id="grams${loop.index}"> </span>--%>
-<%--                                    </div>--%>
-<%--                                    <input name="grams${loop.index}" style="display: none" id="gram${loop.index}" value="100">--%>
-
                 <form action="/consume" method="get">
                     <input type="hidden" name="recipeId" value="${recipe.id}">
                     <div class="slidecontainer">
@@ -42,7 +39,6 @@
             </c:if>
         </div>
     </c:forEach>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let maxId = -1;

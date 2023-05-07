@@ -34,6 +34,17 @@ public class RecipesController {
         return "recipes";
     }
 
+    @GetMapping("/favorite")
+    public String showFavorite(
+            ModelMap map,
+            Principal principal
+    ){
+        User user = userService.findUserByEmail(principal.getName());
+        map.addAttribute("user",user);
+        map.addAttribute("recipes",user.getPreferredRecipes());
+        return "recipes";
+    }
+
     @GetMapping("/consume")
     public String consume(
             @RequestParam Long recipeId,
@@ -42,7 +53,8 @@ public class RecipesController {
     ){
         System.out.println(recipeId + "     " + grams);
         return "redirect:/list";
-    }@GetMapping("/add-to-prefer")
+    }
+    @GetMapping("/add-to-prefer")
     public String addToPrefer(
             @RequestParam Long recipeId,
             Principal principal

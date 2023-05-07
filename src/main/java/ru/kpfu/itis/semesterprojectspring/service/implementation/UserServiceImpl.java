@@ -59,7 +59,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addFavoriteRecipe(User user, Recipe recipe) {
         List<Recipe> recipes =  user.getPreferredRecipes();
-        recipes.add(recipe);
+        if (!recipes.contains(recipe)){
+            recipes.add(recipe);
+        }
         user.setPreferredRecipes(recipes);
         userRepository.save(user);
     }
