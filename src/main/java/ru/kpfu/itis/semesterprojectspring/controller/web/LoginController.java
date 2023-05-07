@@ -11,7 +11,7 @@ import ru.kpfu.itis.semesterprojectspring.model.dto.UserLoginForm;
 @AllArgsConstructor
 public class LoginController {
     @GetMapping("/login")
-    public String loginInit(ModelMap map, @RequestParam Boolean error) {
+    public String loginInit(ModelMap map, @RequestParam(required = false) Boolean error) {
         map.addAttribute("userForm", new UserLoginForm());
         if (error != null){
             map.addAttribute("errorMessage","Incorrect email or password");

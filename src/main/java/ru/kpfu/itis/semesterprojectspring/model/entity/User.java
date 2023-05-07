@@ -39,7 +39,7 @@ public class User {
     @Column(nullable = false)
     private Boolean sex;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @ToString.Exclude
     @JoinTable(
             name =  "user_recipe",

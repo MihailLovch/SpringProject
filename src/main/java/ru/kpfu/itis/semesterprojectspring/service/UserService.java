@@ -1,5 +1,6 @@
 package ru.kpfu.itis.semesterprojectspring.service;
 
+import ru.kpfu.itis.semesterprojectspring.model.entity.Recipe;
 import ru.kpfu.itis.semesterprojectspring.model.entity.User;
 
 public interface UserService {
@@ -10,4 +11,6 @@ public interface UserService {
     void deleteUser(User user);
 
     void updateUser(User user);
+
+    void addFavoriteRecipe(User user, Recipe recipe);
 }
