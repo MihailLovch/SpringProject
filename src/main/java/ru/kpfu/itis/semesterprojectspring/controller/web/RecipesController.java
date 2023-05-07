@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.kpfu.itis.semesterprojectspring.model.dto.RecordDto;
 import ru.kpfu.itis.semesterprojectspring.model.entity.Recipe;
 import ru.kpfu.itis.semesterprojectspring.model.entity.User;
 import ru.kpfu.itis.semesterprojectspring.service.RecipeService;
@@ -48,10 +49,19 @@ public class RecipesController {
     @GetMapping("/consume")
     public String consume(
             @RequestParam Long recipeId,
-            @RequestParam Long grams
-
+            @RequestParam Long grams,
+            Principal principal
     ){
-        System.out.println(recipeId + "     " + grams);
+        Recipe recipe = recipeService.getById(recipeId);
+        userService.updateUserRecord(
+                userService.findUserByEmail(principal.getName()),
+                new RecordDto(
+                        recipe.getCalories() * grams / 100,
+                        recipe.getCarbs() * grams / 100,
+                        recipe.getFat() * grams / 100,
+                        recipe.getProteins() * grams / 100
+                        )
+        );
         return "redirect:/list";
     }
     @GetMapping("/add-to-prefer")

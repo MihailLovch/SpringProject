@@ -42,11 +42,13 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @ToString.Exclude
     @JoinTable(
-            name =  "user_recipe",
+            name = "user_recipe",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "recipe_id")}
     )
     private List<Recipe> preferredRecipes = new ArrayList<>();
 
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private List<Record> records = new ArrayList<>();
 }

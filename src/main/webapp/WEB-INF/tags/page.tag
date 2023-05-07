@@ -23,7 +23,7 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="${s:mvcUrl("MPC#list").build()}" class="nav-link px-2 text-white">Home</a></li>
-                <li><a href="" class="nav-link px-2 text-white">Dashboard</a></li>
+                <li><a href="${s:mvcUrl("DC#view").build()}" class="nav-link px-2 text-white">Dashboard</a></li>
                 <li><a href="${s:mvcUrl("RC#view").build()}" class="nav-link px-2 text-white">Recipes</a></li>
                 <li><a href="${s:mvcUrl("RRC#getRandomRecipe").build()}" class="nav-link px-2 text-white">Random recipes</a></li>
                 <li><a href="${s:mvcUrl("MPC#view").build()}" class="nav-link px-2 text-white">Profile</a></li>
