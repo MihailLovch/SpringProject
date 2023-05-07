@@ -1,10 +1,7 @@
 package ru.kpfu.itis.semesterprojectspring.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +40,7 @@ public class User {
     private Boolean sex;
 
     @ManyToMany
+    @ToString.Exclude
     @JoinTable(
             name =  "user_recipe",
             joinColumns = {@JoinColumn(name = "user_id")},

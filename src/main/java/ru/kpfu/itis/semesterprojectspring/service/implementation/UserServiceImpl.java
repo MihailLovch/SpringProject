@@ -16,21 +16,40 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void signInUser(User user) throws IllegalUserException{
-        if (userRepository.findUserByEmail(user.getEmail()) == null){
+    public void signInUser(User user) throws IllegalUserException {
+        if (userRepository.findUserByEmail(user.getEmail()) == null) {
             userRepository.save(user);
-        }else{
+        } else {
             throw new IllegalUserException("User with this email already exists");
         }
     }
 
     @Override
-    public User loginUser(User user){
+    public User loginUser(User user) {
         User findedUser = userRepository.findUserByEmail(user.getEmail());
-        if (findedUser == null || passwordEncoder.matches(findedUser.getPassword(), user.getPassword())){
+        if (findedUser == null || passwordEncoder.matches(findedUser.getPassword(), user.getPassword())) {
             throw new IllegalUserException("Incorrect Email or Password");
-        }else {
+        } else {
             return findedUser;
+        }
+    }
+
+    @Override
+    public User findUserByEmail(String name) {
+        return userRepository.findUserByEmail(name);
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        if (userRepository.findUserByEmail(user.getEmail()) != null) {
+            userRepository.save(user);
+        } else {
+            throw new IllegalUserException("User with this email not found");
         }
     }
 }

@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Range;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserSigningForm {
+public class UserSignupForm {
     @NotEmpty
     private String nickName;
 
@@ -33,6 +33,6 @@ public class UserSigningForm {
     @Range(min = 0,max = 120)
     private int age;
 
-    @NotNull(message = "Не должно быть пустым")
+    @NotNull(message = "Should be filled")
     private Boolean sex;
 }

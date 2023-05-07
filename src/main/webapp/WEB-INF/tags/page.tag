@@ -14,7 +14,6 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="${css}">
-        <script src="${pageContext.request.contextPath}/javascript/popOut.js"></script>
         <script src="${jsPath}"></script>
     </head>
 <body>
@@ -28,14 +27,14 @@
                 <li><a href="" class="nav-link px-2 text-white">Recipes</a></li>
                 <li><a href="" class="nav-link px-2 text-white">Favorite recipes</a></li>
                 <li><a href="${s:mvcUrl("RRC#getRandomRecipe").build()}" class="nav-link px-2 text-white">Random recipes</a></li>
-                <li><a href="" class="nav-link px-2 text-white">Profile</a></li>
+                <li><a href="${s:mvcUrl("MPC#view").build()}" class="nav-link px-2 text-white">Profile</a></li>
             </ul>
             <c:if test="${true}">
                 <a href="${s:mvcUrl("LC#loginInit").build()}" class="btn btn-warning">Log in</a>
             </c:if>
             <c:if test="${true}">
             <div class="text-end">
-                <a href="${s:mvcUrl("SC#showSignIn").build()}" class="btn btn-warning ml-1" role="button">Sign-up</a>
+                <a href="${s:mvcUrl("SC#view").build()}" class="btn btn-warning ml-1" role="button">Sign-up</a>
             </div>
             </c:if>
 

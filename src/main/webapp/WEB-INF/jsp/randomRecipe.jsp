@@ -5,7 +5,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <t:page title="Random recipe">
     <p style="text-align:center;">
-        <button id="fetchDataBtn" class="btn btn-warning">Get new recipe ajax</button>
+        <button id="fetchDataBtn" class="btn btn-warning">Get new recipe</button>
     </p>
     <div style="text-align:center;">
         <img id="recipeImage" src="${imageUrl}" alt="Image" >
@@ -53,7 +53,7 @@
 
                     }
                 }else{
-                    console.error("ERROR OCCURRED");
+                    alert("Something bad happened,please try again")
                 }
             };
             xhr.open("GET","/api/random-recipe",true)

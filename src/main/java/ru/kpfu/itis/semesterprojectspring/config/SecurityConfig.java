@@ -16,16 +16,22 @@ import ru.kpfu.itis.semesterprojectspring.security.SuccessHandler;
 @AllArgsConstructor
 public class SecurityConfig {
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity http, SuccessHandler successHandler) throws Exception {
-        return http.authorizeRequests()
+        return http.authorizeHttpRequests()
+                .requestMatchers("/profile/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login").successHandler(successHandler).failureUrl("/login?error").usernameParameter("email").passwordParameter("password").successForwardUrl("/home")
+                .formLogin().loginPage("/login").successHandler(successHandler).failureUrl("/login?error=true")
+                .usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/profile")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .and()

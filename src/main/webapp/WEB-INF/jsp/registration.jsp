@@ -56,7 +56,7 @@
     <c:if test="${not empty errorMessage}">
         <p>${errorMessage}</p>
     </c:if>
-    <form:form method="post" modelAttribute="signingForm">
+    <form:form method="post" modelAttribute="signupForm">
         <table>
             <tr>
                 <td><form:label path="nickName">Nick Name:</form:label></td>
@@ -100,7 +100,7 @@
     </form:form>
 
 <%--    <div class="form-container">--%>
-<%--        <form:form method="POST" modelAttribute="signingForm">--%>
+<%--        <form:form method="POST" modelAttribute="signupForm">--%>
 <%--            <label for="nickName">Nick Name:</label>--%>
 <%--            <form:input type="text" id="nickName" path="nickName" />--%>
 <%--            <label for="password">Password:</label>--%>
