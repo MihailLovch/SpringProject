@@ -1,0 +1,159 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/recipes/{id}/name:
+    put:
+      tags:
+      - Recipe Controller
+      summary: Update recipe by id
+      operationId: updateRecipeName
+      parameters:
+      - name: id
+        in: path
+        description: Recipe id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: newName
+        in: query
+        description: New Recipe name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Recipe updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultResponse'
+        "404":
+          description: Recipe not found
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/recipes/add:
+    post:
+      tags:
+      - Recipe Controller
+      summary: Add new recipe
+      operationId: addRecipe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: integer
+              description: Recipe object
+              format: int64
+        required: true
+      responses:
+        "201":
+          description: Added recipe successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Error adding recipe
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/recipes/info/{id}:
+    get:
+      tags:
+      - Recipe Controller
+      summary: Get recipe by id
+      operationId: getById
+      parameters:
+      - name: id
+        in: path
+        description: Recipe id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Recipe not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "200":
+          description: Recipe found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponse'
+  /api/recipes/all:
+    get:
+      tags:
+      - Recipe Controller
+      summary: Get all recipes
+      operationId: getAll
+      responses:
+        "200":
+          description: All recipes
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/random-recipe:
+    get:
+      tags:
+      - random-recipe-rest-controller
+      operationId: getRandomRecipe
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/recipes/delete/{id}:
+    delete:
+      tags:
+      - Recipe Controller
+      summary: Delete recipe by id
+      operationId: deleteRecipe
+      parameters:
+      - name: id
+        in: path
+        description: Recipe id
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Recipe deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultResponse'
+        "404":
+          description: Recipe not found
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    DefaultResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    DataResponse:
+      type: object
+      properties:
+        data:
+          type: object

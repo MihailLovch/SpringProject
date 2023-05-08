@@ -1,0 +1,24 @@
+### GET all recipes available
+GET http://localhost:8181/api/recipes/all
+
+### GET recipe by id
+GET http://localhost:8181/api/recipes/info/1
+
+### CREATE new recipe
+
+GET http://localhost:8181/api/recipes/add
+Content-Type:application/json
+
+{
+        "name": "Some thing",
+        "calories": 203.0,
+        "proteins": 15.0,
+        "fat": 15.0,
+        "carbs": 3.0
+}
+
+###
+GET http://localhost:8181/api/recipes/16/name?newName=newTEst
+
+###
+GET http://localhost:8181/api/recipes/delete/16

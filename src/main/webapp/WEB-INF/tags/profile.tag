@@ -112,7 +112,7 @@
             </div>
         </section>
         <c:if test="${not edit}">
-<%--            <a href="<c:url value="/signOut"/>" class="btn btn-outline-dark me-2">Sign Out</a>--%>
+            <a href="${s:mvcUrl("LC#logout").build()}" class="btn btn-outline-dark me-2">Sign Out</a>
             <a href="${s:mvcUrl("PEC#view").build()}" class="btn btn-outline-dark me-2">Edit Profile</a>
             <a href="${s:mvcUrl("MPC#deleteProfile").build()}" id="deleteProfileBtn" class="btn btn-outline-dark me-2">Delete Profile</a>
         </c:if>

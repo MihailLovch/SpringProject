@@ -53,20 +53,4 @@ public class UserMapper {
                 .build();
     }
 
-    public User mapToUser(UserLoginForm form) {
-        return User.builder()
-                .email(form.getEmail())
-                .password(passwordEncoder.encode(form.getPassword()))
-                .build();
-    }
-
-    public User mapToUser(EditedUserForm form) {
-        return User.builder()
-                .name(form.getName())
-                .weight(form.getWeight())
-                .height(form.getHeight())
-                .age(form.getAge())
-                .sex(form.getSex())
-                .build();
-    }
 }

@@ -1,63 +1,91 @@
 package ru.kpfu.itis.semesterprojectspring.controller.rest;
 
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.semesterprojectspring.exception.IllegalRecipeException;
+import ru.kpfu.itis.semesterprojectspring.model.dto.RecipeDto;
 import ru.kpfu.itis.semesterprojectspring.model.entity.Recipe;
 import ru.kpfu.itis.semesterprojectspring.model.response.my.DataResponse;
 import ru.kpfu.itis.semesterprojectspring.model.response.my.DefaultResponse;
 import ru.kpfu.itis.semesterprojectspring.service.RecipeService;
+import ru.kpfu.itis.semesterprojectspring.utils.converter.RecipeConverter;
 
 @RestController
-@RequestMapping("/api/recipes")
+@Component
+@RequestMapping(value = "/api/recipes")
 @AllArgsConstructor
-@Api(tags = "Recipe Controller")
+@Tags(
+        value = {
+                @Tag(name = "Recipe Controller")
+        }
+)
 public class RecipeRestController {
 
     private static final String ADD_SUCCESS = "Added recipe successfully";
     private static final String UPDATE_SUCCESS = "Recipe updated successfully";
     private static final String DELETE_SUCCESS = "Recipe deleted successfully";
+    private static final String JSON_TYPE = "application/json";
 
     private RecipeService recipeService;
 
-    @ApiOperation(value = "Add new recipe")
+    @Operation(summary = "Add new recipe")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = ADD_SUCCESS),
-            @ApiResponse(code = 404, message = "Error adding recipe")
+            @ApiResponse(responseCode = "201", description = ADD_SUCCESS),
+            @ApiResponse(responseCode = "404", description = "Error adding recipe")
     })
-    @PostMapping("/add")
+    @GetMapping("/add")
     public ResponseEntity<?> addRecipe(
-            @ApiParam(value = "Recipe object", required = true) @RequestBody Recipe recipe
+            @Parameter(description = "Recipe object", content = {@Content(mediaType = JSON_TYPE, schema = @Schema(implementation = DefaultResponse.class))})
+            @RequestBody RecipeDto recipeDto
     ) {
         try {
-            recipeService.saveRecipe(recipe);
-            return ResponseEntity.ok(new DefaultResponse(ADD_SUCCESS));
+            recipeService.saveRecipe(
+                    Recipe.builder()
+                            .name(recipeDto.getName())
+                            .calories(recipeDto.getCalories())
+                            .proteins(recipeDto.getProteins())
+                            .fat(recipeDto.getFat())
+                            .carbs(recipeDto.getCarbs())
+                            .build()
+            );
+            return ResponseEntity.status(HttpStatus.CREATED).body(new DefaultResponse(ADD_SUCCESS));
         } catch (IllegalRecipeException ex) {
-            return new ResponseEntity<>(new DefaultResponse(ex.getMessage()), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new DefaultResponse(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @ApiOperation(value = "Get all recipes")
+    @Operation(summary = "Get all recipes")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "All recipes")
+            @ApiResponse(responseCode = "200", description = "All recipes")
     })
     @GetMapping("/all")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(new DataResponse<>(recipeService.getAll()));
     }
 
-    @ApiOperation(value = "Get recipe by id")
+    @Operation(summary = "Get recipe by id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Recipe found"),
-            @ApiResponse(code = 404, message = "Recipe not found")
+            @ApiResponse(responseCode = "200", description = "Recipe found", content = {@Content(mediaType = JSON_TYPE, schema = @Schema(implementation = DataResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "Recipe not found")
     })
     @GetMapping("/info/{id}")
     public ResponseEntity<?> getById(
-            @ApiParam(value = "Recipe id", required = true) @PathVariable Long id
+            @Parameter(description = "Recipe id", required = true)
+            @PathVariable Long id
     ) {
         try {
             Recipe recipe = recipeService.getById(id);
@@ -67,15 +95,17 @@ public class RecipeRestController {
         }
     }
 
-    @ApiOperation(value = "Update recipe by id")
+    @Operation(summary = "Update recipe by id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Recipe updated"),
-            @ApiResponse(code = 404, message = "Recipe not found")
+            @ApiResponse(responseCode = "200", description = "Recipe updated", content = {@Content(mediaType = JSON_TYPE, schema = @Schema(implementation = DefaultResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "Recipe not found")
     })
-    @PutMapping("/{id}/name")
+    @GetMapping("/{id}/name")
     public ResponseEntity<?> updateRecipeName(
-            @ApiParam(value = "Recipe id", required = true) @PathVariable Long id,
-            @ApiParam(value = "New recipe name", required = true) @RequestParam String newName
+            @Parameter(description = "Recipe id", required = true)
+            @PathVariable Long id,
+            @Parameter(description = "New Recipe name", required = true)
+            @RequestParam String newName
     ) {
         try {
             Recipe recipe = recipeService.getById(id);
@@ -87,14 +117,15 @@ public class RecipeRestController {
         }
     }
 
-    @ApiOperation(value = "Delete recipe by id")
+    @Operation(summary = "Delete recipe by id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Recipe deleted"),
-            @ApiResponse(code = 404, message = "Recipe not found")
+            @ApiResponse(responseCode = "200", description = "Recipe deleted", content = {@Content(mediaType = JSON_TYPE, schema = @Schema(implementation = DefaultResponse.class))}),
+            @ApiResponse(responseCode = "404", description = "Recipe not found")
     })
-    @DeleteMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public ResponseEntity<?> deleteRecipe(
-            @ApiParam(value = "Recipe id", required = true) @PathVariable Long id
+            @Parameter(description = "Recipe id", required = true)
+            @PathVariable Long id
     ) {
         try {
             recipeService.deleteRecipe(id);
