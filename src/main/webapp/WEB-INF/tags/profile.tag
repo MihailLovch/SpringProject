@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="about-avatar">
-                            <img src="<c:url value="/static/userAvatar.png"/>" title="" alt="">
+                            <img src="<c:url value="/assets/static/userAvatar.png"/>" type="png" title="" alt="">
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,10 @@
         <c:if test="${not edit}">
             <a href="${s:mvcUrl("LC#logout").build()}" class="btn btn-outline-dark me-2">Sign Out</a>
             <a href="${s:mvcUrl("PEC#view").build()}" class="btn btn-outline-dark me-2">Edit Profile</a>
-            <a href="${s:mvcUrl("MPC#deleteProfile").build()}" id="deleteProfileBtn" class="btn btn-outline-dark me-2">Delete Profile</a>
+            <form action="/profile" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                <input type="submit" value="Delete Account" class="btn btn-outline-dark me-2">
+            </form>
         </c:if>
         <c:if test="${edit}">
             <c:if test="${not empty notice}">
@@ -128,108 +131,3 @@
             <input type="submit" value="Submit changes"/>
         </c:if>
     </form:form>
-
-<style>
-    body{
-        color: #6F8BA4;
-        margin-top:20px;
-    }
-    .section {
-        padding: 100px 0;
-        position: relative;
-    }
-    .gray-bg {
-        background-color: #f5f5f5;
-    }
-    img {
-        max-width: 100%;
-    }
-    img {
-        vertical-align: middle;
-        border-style: none;
-    }
-
-    .about-text h3 {
-        font-size: 45px;
-        font-weight: 700;
-        margin: 0 0 6px;
-    }
-
-    .about-text h6 {
-        font-weight: 600;
-        margin-bottom: 15px;
-    }
-
-    .about-text p {
-        font-size: 18px;
-        max-width: 450px;
-    }
-    .about-text p mark {
-        font-weight: 600;
-        color: #20247b;
-    }
-
-    .about-list {
-        padding-top: 10px;
-    }
-    .about-list .media {
-        padding: 5px 0;
-    }
-    .about-list label {
-        color: #20247b;
-        font-weight: 600;
-        width: 88px;
-        margin: 0;
-        position: relative;
-    }
-    .about-list label:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 11px;
-        width: 1px;
-        height: 12px;
-        background: #20247b;
-        -moz-transform: rotate(15deg);
-        -o-transform: rotate(15deg);
-        -ms-transform: rotate(15deg);
-        -webkit-transform: rotate(15deg);
-        transform: rotate(15deg);
-        margin: auto;
-        opacity: 0.5;
-    }
-    .about-list p {
-        margin: 0;
-        font-size: 15px;
-    }
-
-
-    .about-section .counter {
-        padding: 22px 20px;
-        background: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
-    }
-    .about-section .counter .count-data {
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .about-section .counter .count {
-        font-weight: 700;
-        color: #20247b;
-        margin: 0 0 5px;
-    }
-    .about-section .counter p {
-        font-weight: 600;
-        margin: 0;
-    }
-
-    .theme-color {
-        color: #fc5356;
-    }
-    .dark-color {
-        color: #20247b;
-    }
-
-</style>

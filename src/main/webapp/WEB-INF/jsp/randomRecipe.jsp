@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
-<t:page title="Random recipe">
+<t:page title="Random recipe" jsPath="/assets/javascript/randomRecipeAjax.js">
     <p style="text-align:center;">
         <button id="fetchDataBtn" class="btn btn-warning">Get new recipe</button>
     </p>
@@ -25,40 +25,5 @@
             <div id="recipe" style="font-size: 16px; font-weight: bold;">${recipe}</div>
         </div>
     </c:if>
-
-    <script>
-        const fetchDataBtn = document.getElementById("fetchDataBtn");
-        const recipeImage = document.getElementById("recipeImage");
-        const calories = document.getElementById("calories");
-        const fats = document.getElementById("fats");
-        const carbs = document.getElementById("carbs");
-        const info = document.getElementById("info");
-        const recipe = document.getElementById("recipe");
-
-        fetchDataBtn.addEventListener("click", ()=> {
-            const xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function (){
-                if (xhr.readyState === XMLHttpRequest.DONE ){
-                    if (xhr.status === 200) {
-                        const response = JSON.parse(xhr.responseText);
-
-                        recipeImage.setAttribute("src",response.imageUrl);
-
-                        calories.innerText = "Calories:" + response.calories;
-                        carbs.innerText = "Carbs:" + response.carbs;
-                        fats.innerText = "Fats:" + response.fats;
-
-                        info.innerHTML = response.information
-                        recipe.innerHTML = response.instruction
-
-                    }
-                }else{
-                    alert("Something bad happened,please try again")
-                }
-            };
-            xhr.open("GET","/api/random-recipe",true)
-            xhr.send();
-        });
-    </script>
 </t:page>
 

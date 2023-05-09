@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <t:page title="Cabinet" >
 
@@ -24,5 +25,19 @@
                 </div>
             </div>
         </div>
+
+        <p>Days when you over eat : ${countDays} :(</p>
+
+        <p>Your month records: </p>
+
+        <c:forEach var="record" items="${records}" varStatus="loop">
+
+            <span>Date: <fmt:formatDate value="${record.date}" pattern="dd-MM-yyyy"/> </span>
+            <span>Calories:<fmt:formatNumber value="${record.calorie}" pattern="#0.00"/> </span>
+            <span>Fat: <fmt:formatNumber value="${record.fat}" pattern="#0.00"/></span>
+            <span>Carbs: <fmt:formatNumber value="${record.carb}" pattern="#0.00"/></span>
+            <span>Proteins: <fmt:formatNumber value="${record.proteins}" pattern="#0.00"/></span> <br>
+        </c:forEach>
+
     </main>
 </t:page>

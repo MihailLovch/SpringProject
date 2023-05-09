@@ -3,10 +3,7 @@ package ru.kpfu.itis.semesterprojectspring.controller.web;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kpfu.itis.semesterprojectspring.model.dto.EditedUserForm;
+import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.semesterprojectspring.model.entity.User;
 import ru.kpfu.itis.semesterprojectspring.service.UserService;
 
@@ -26,9 +23,12 @@ public class MyProfileController {
         return "profile";
     }
 
-    @GetMapping("/profile/delete")
-    public String deleteProfile(Principal principal){
-        userService.deleteUser(userService.findUserByEmail(principal.getName()));
-        return "redirect:/home";
+    @PostMapping("/profile")
+    public String deleteProfile(
+            Principal principal
+    ){
+//        userService.deleteUser(userService.findUserByEmail(principal.getName()));
+        System.out.println("TEST-TAG DELETED");
+        return "redirect:/logout";
     }
 }

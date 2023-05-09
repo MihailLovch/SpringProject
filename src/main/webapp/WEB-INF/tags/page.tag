@@ -25,6 +25,8 @@
                 <li><a href="${s:mvcUrl("MPC#list").build()}" class="nav-link px-2 text-white">Home</a></li>
                 <li><a href="${s:mvcUrl("DC#view").build()}" class="nav-link px-2 text-white">Dashboard</a></li>
                 <li><a href="${s:mvcUrl("RC#view").build()}" class="nav-link px-2 text-white">Recipes</a></li>
+                <li><a href="${s:mvcUrl("TC#view").build()}" class="nav-link px-2 text-white">Trainings</a></li>
+                <li><a href="${s:mvcUrl("PC#view").build()}" class="nav-link px-2 text-white">Products</a></li>
                 <li><a href="${s:mvcUrl("RRC#getRandomRecipe").build()}" class="nav-link px-2 text-white">Random recipes</a></li>
                 <li><a href="${s:mvcUrl("MPC#view").build()}" class="nav-link px-2 text-white">Profile</a></li>
             </ul>

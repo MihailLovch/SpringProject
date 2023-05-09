@@ -1,5 +1,7 @@
 package ru.kpfu.itis.semesterprojectspring.service.implementation;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RecordRepository recordRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @PersistenceContext
+    private final EntityManager em;
 
     @Override
     public void signInUser(User user) throws IllegalUserException {
@@ -100,6 +105,11 @@ public class UserServiceImpl implements UserService {
             record.setCarb(record.getCarb() + recordDto.getCarb());
         }
         recordRepository.save(record);
+    }
+
+    @Override
+    public List<String> findTopRecipesByCalories(User user) {
+        return userRepository.findTopRecipesByCalories(user.getEmail());
     }
 
 }

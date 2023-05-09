@@ -17,4 +17,16 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)
     private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private Double calories;
+    @Column(nullable = false)
+    private Double proteins;
+    @Column(nullable = false)
+    private Double fat;
+    @Column(nullable = false)
+    private Double carbs;
 }

@@ -4,6 +4,8 @@ import ru.kpfu.itis.semesterprojectspring.model.dto.RecordDto;
 import ru.kpfu.itis.semesterprojectspring.model.entity.Recipe;
 import ru.kpfu.itis.semesterprojectspring.model.entity.User;
 
+import java.util.List;
+
 public interface UserService {
     void signInUser(User user);
     User loginUser(User user);
@@ -16,4 +18,6 @@ public interface UserService {
     void addFavoriteRecipe(User user, Recipe recipe);
 
     void updateUserRecord(User user, RecordDto recordDto);
+
+    List<String> findTopRecipesByCalories(User user);
 }

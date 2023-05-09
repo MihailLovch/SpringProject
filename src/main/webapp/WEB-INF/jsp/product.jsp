@@ -7,22 +7,16 @@
         <div style="color: red; margin-top: 100px"> ${error}</div>
     </c:if>
 
-    <c:if test="${not empty user}">
-        <form action="/recipes/favorite" method="get">
-            <input type="submit" value="Show only favorite">
-        </form>
-    </c:if>
-
-    <c:forEach var="recipe" items="${recipes}" varStatus="loop">
+    <c:forEach var="product" items="${products}" varStatus="loop">
         <div class="align-items-center">
-            <span>${recipe.name}</span>
-            <span id="calorie${loop.index}">Calories: ${recipe.calories}</span>
-            <span id="protein${loop.index}">Proteins: ${recipe.proteins}</span>
-            <span id="fat${loop.index}">Fats: ${recipe.fat}</span>
-            <span id="carb${loop.index}">Carbs: ${recipe.carbs}</span>
+            <span>${product.name}</span>
+            <span id="calorie${loop.index}">Calories: ${product.calories}</span>
+            <span id="protein${loop.index}">Proteins: ${product.proteins}</span>
+            <span id="fat${loop.index}">Fats: ${product.fat}</span>
+            <span id="carb${loop.index}">Carbs: ${product.carbs}</span>
             <c:if test="${user != null}">
-                <form action="/recipes/consume" method="get">
-                    <input type="hidden" name="recipeId" value="${recipe.id}">
+                <form action="/products/consume" method="get">
+                    <input type="hidden" name="productId" value="${product.id}">
                     <div class="slidecontainer">
                         <input type="range" min="1" max="1000" value="100" class="slider" id="myRange${loop.index}">
                         <span id="grams${loop.index}"> </span>
@@ -30,11 +24,6 @@
                     <input name="grams" style="display: none" id="gram${loop.index}" value="100">
                     <input type="submit" value="Eat it" id="submit${loop.index}">
                 </form>
-                <form action="/recipes/add-to-prefer" method="get">
-                    <input type="hidden" name="recipeId" value="${recipe.id}">
-                    <input type="submit" value="Add to favorite" id="submit${loop.index}">
-                </form>
-
             </c:if>
         </div>
     </c:forEach>

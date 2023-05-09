@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kpfu.itis.semesterprojectspring.model.dto.RecordDto;
 import ru.kpfu.itis.semesterprojectspring.model.entity.Recipe;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/recipes")
 public class RecipesController {
 
     private final RecipeService recipeService;
@@ -60,7 +62,7 @@ public class RecipesController {
                         recipe.getProteins() * grams / 100
                 )
         );
-        return "redirect:/list";
+        return "redirect:/recipes/list";
     }
 
     @GetMapping("/add-to-prefer")
@@ -71,6 +73,6 @@ public class RecipesController {
         User user = userService.findUserByEmail(principal.getName());
         Recipe recipe = recipeService.getById(recipeId);
         userService.addFavoriteRecipe(user, recipe);
-        return "redirect:/list";
+        return "redirect:/recipes/list";
     }
 }

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -17,4 +19,13 @@ public class Training {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "training_id", nullable = false)
     private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private Double calories;
+
+    @Column(nullable = false)
+    private TrainingType type;
 }
