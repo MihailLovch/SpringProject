@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.stereotype.Component;
+import ru.kpfu.itis.semesterprojectspring.model.dto.RecipeDto;
 import ru.kpfu.itis.semesterprojectspring.model.entity.Recipe;
 import ru.kpfu.itis.semesterprojectspring.service.RecipeService;
 
@@ -15,19 +16,23 @@ import java.util.Set;
 @AllArgsConstructor
 public class RecipeConverter implements GenericConverter {
 
-    private final RecipeService recipeService;
-
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {
-        return Collections.singleton(new ConvertiblePair(Long.class, Recipe.class));
+        return Collections.singleton(new ConvertiblePair(RecipeDto.class, Recipe.class));
     }
 
     @Override
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         try{
-            if (Long.class.equals(sourceType.getType())){
-                Long id = (Long) source;
-                return recipeService.getById(id);
+            if (RecipeDto.class.equals(sourceType.getType())){
+                RecipeDto recipeDto = (RecipeDto) source;
+                return Recipe.builder()
+                        .name(recipeDto.getName())
+                        .calories(recipeDto.getCalories())
+                        .proteins(recipeDto.getProteins())
+                        .fat(recipeDto.getFat())
+                        .carbs(recipeDto.getCarbs())
+                        .build();
             }else{
                 throw new IllegalArgumentException("Can't convert " + source + " into suitable type");
             }

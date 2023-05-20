@@ -49,10 +49,12 @@ public class RecipesController {
 
     @GetMapping("/consume")
     public String consume(
-            @RequestParam("recipeId") Recipe recipe,
+            @RequestParam("recipeId") Long id,
             @RequestParam Long grams,
             Principal principal
     ) {
+        Recipe recipe = recipeService.getById(id);
+
         userService.updateUserRecord(
                 userService.findUserByEmail(principal.getName()),
                 new RecordDto(

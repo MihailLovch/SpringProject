@@ -20,7 +20,6 @@ import java.security.Principal;
 public class ProfileEditController {
 
     private final UserService userService;
-    private final UserMapper userMapper;
 
     @GetMapping("/profile/edit")
     public String view(ModelMap map, Principal principal){

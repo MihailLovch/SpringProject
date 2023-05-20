@@ -14,6 +14,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByEmail(String email);
 
-    @Query("SELECT r.name FROM User u JOIN u.preferredRecipes r WHERE u.email = :email AND r.calories IN (SELECT r2.calories FROM Recipe r2 ORDER BY r2.calories DESC LIMIT 5)")
+    @Query("SELECT r.name FROM User u " +
+            "JOIN u.preferredRecipes r " +
+            "WHERE u.email = :email AND r.calories IN (SELECT r2.calories FROM Recipe r2 ORDER BY r2.calories DESC LIMIT 5)")
     List<String> findTopRecipesByCalories(@Param("email") String email);
 }

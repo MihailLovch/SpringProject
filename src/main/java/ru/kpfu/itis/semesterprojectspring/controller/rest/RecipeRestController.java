@@ -50,7 +50,7 @@ public class RecipeRestController {
     @GetMapping("/add")
     public ResponseEntity<?> addRecipe(
             @Parameter(description = "Recipe object", content = {@Content(mediaType = JSON_TYPE, schema = @Schema(implementation = DefaultResponse.class))})
-            @RequestBody RecipeDto recipeDto
+            @RequestBody Recipe recipeDto
     ) {
         try {
             recipeService.saveRecipe(
