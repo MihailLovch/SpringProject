@@ -39,5 +39,13 @@
             <span>Proteins: <fmt:formatNumber value="${record.proteins}" pattern="#0.00"/></span> <br>
         </c:forEach>
 
+        <br>
+        <p>Your favorite recipes that are among most caloried: </p>
+
+        <c:forEach var="recipe" items="${recipes}" varStatus="loop">
+
+            <span>Name: ${recipe} </span><br>
+        </c:forEach>
+
     </main>
 </t:page>
